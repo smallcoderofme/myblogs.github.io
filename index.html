@@ -102,14 +102,14 @@
 <li><a target="_blank" rel="noopener" href="https://www.nginx.com/blog/benefits-of-microcaching-nginx/">使用NGINX进行微缓存的好处</a></li>
 </ul>
 <h3 id="为HTML，CSS和JavaScript文件启用Gzip压缩"><a href="#为HTML，CSS和JavaScript文件启用Gzip压缩" class="headerlink" title="为HTML，CSS和JavaScript文件启用Gzip压缩"></a>为HTML，CSS和JavaScript文件启用Gzip压缩</h3><p>如您所知，用于在现代网站上构建页面的HTML，CSS和JavaScript文件可能非常庞大。在大多数情况下，Web服务器可以即时压缩这些和其他文本文件，以节省网络带宽。</p>
-<img src="/myblogs.github.io/2020/08/14/通过修复NGINX配置帮助世界/rogalove-devtools-no-gzip.png">
+<img src="/myblogs.github.io/2020/08/17/通过修复NGINX配置帮助世界/rogalove-devtools-no-gzip.png">
 
 <p>如您在左下方所见，没有压缩：文本文件的大小为1.15 MB，并且传输了很多数据。</p>
 <p>默认情况下，NGINX中禁用压缩，但是根据您的安装或Linux发行版，某些设置可能会在默认的nginx.conf文件中启用。在这里，我们在NGINX配置文件中启用gzip压缩：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gzip on;</span><br><span class="line">gzip_types application/xml application/json </span><br><span class="line">text/css text/javascript application/javascript;</span><br><span class="line">gzip_vary on;</span><br><span class="line">gzip_comp_level 6;</span><br><span class="line">gzip_min_length 500;</span><br></pre></td></tr></table></figure>
 
 <p>如您在以下屏幕截图中所见，压缩后的数据传输量仅为260 KB ，减少了约80％！对于页面上的每个新用户，您可以节省大约917 KB的数据传输。对于我们的WooCommerce安装，每天62 MB，或每月1860 MB。</p>
-<img src="/myblogs.github.io/2020/08/14/通过修复NGINX配置帮助世界/rogalove-devtools-gzip.png">
+<img src="/myblogs.github.io/2020/08/17/通过修复NGINX配置帮助世界/rogalove-devtools-gzip.png">
 
 <h3 id="设置缓存头"><a href="#设置缓存头" class="headerlink" title="设置缓存头"></a>设置缓存头</h3><p>当浏览器检索网页的文件时，它会将副本保留在本地磁盘缓存中，这样，当您再次访问该页面时，它不必从服务器重新获取文件。每个浏览器都使用自己的逻辑来决定何时使用文件的本地副本以及何时在服务器上更改了文件时再次获取它。但是，作为网站所有者，您可以在发送的HTTP响应中设置缓存控制和过期标头，以提高浏览器的缓存行为的效率。从长远来看，您会收到很多不必要的HTTP请求。</p>
 <p>首先，您可以为字体和图像设置较长的缓存过期时间，这些字体和图像可能不会经常更改（即使更改，它们通常也会获得新的文件名）。在以下示例中，我们指示客户端浏览器将字体和图像在本地缓存中保留一个月：</p>
@@ -117,7 +117,7 @@
 
 <h3 id="启用HTTP-2协议支持"><a href="#启用HTTP-2协议支持" class="headerlink" title="启用HTTP / 2协议支持"></a>启用HTTP / 2协议支持</h3><p>HTTP / 2是用于服务网页的下一代协议，旨在更好地利用网络和主机服务器。根据Google文档，它可以更快地加载页面： 生成的协议对网络更友好，因为与HTTP / 1.x相比，使用的TCP连接更少。这意味着与其他流量的竞争减少，连接寿命更长，从而可以更好地利用可用网络容量。 NGINX 1.9.5和更高版本（以及NGINX Plus R7和更高版本）支持HTTP / 2协议，您所需要做的就是启用它。为此，请在您的NGINX配置文件中http2的listen指令中包含参数：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen 443 ssl http2;</span><br></pre></td></tr></table></figure>
-<p>请注意，在大多数情况下，您还需要启用TLS才能使用HTTP / 2。 您可以通过HTTP2.Pro服务验证您（或任何站点）是否支持HTTP/2:<br><img src="/myblogs.github.io/2020/08/14/通过修复NGINX配置帮助世界/rogalove-http2-pro.png"></p>
+<p>请注意，在大多数情况下，您还需要启用TLS才能使用HTTP / 2。 您可以通过HTTP2.Pro服务验证您（或任何站点）是否支持HTTP/2:<br><img src="/myblogs.github.io/2020/08/17/通过修复NGINX配置帮助世界/rogalove-http2-pro.png"></p>
 <h3 id="优化记录"><a href="#优化记录" class="headerlink" title="优化记录"></a>优化记录</h3><p>让自己喝一杯自己喜欢的饮料，舒适地坐着，然后思考：您上次查看访问日志文件是什么时候？上周，上个月，从来没有？即使将其用于站点的日常监视，您也可能只关注错误（400和500状态代码等），而不关注成功的请求。</p>
 <p>通过减少或消除不必要的日志记录，可以节省服务器上的磁盘存储，CPU和I / O操作。这不仅使您的服务器更快一点-如果将您部署在云环境中，则释放的I / O吞吐量和CPU周期可能为同一虚拟机上的其他虚拟机或应用程序节省生命。</p>
 <p>有几种不同的方法可以减少和优化日志记录。在这里，我们重点介绍三个。</p>
