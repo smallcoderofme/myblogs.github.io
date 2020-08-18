@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>How to save and load game in Godot Engine | 净土</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文地址：How to save and load game in Godot Engine 创建两个 AutoLoad gdscript 脚本文件Save the file into res:&#x2F;&#x2F;autoload&#x2F;user_data_manager.gdUse the same process to create another script res:&#x2F;&#x2F;autoload&#x2F;game_manage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to save and load game in Godot Engine">
+<meta property="og:url" content="http://yoursite.com/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/index.html">
+<meta property="og:site_name" content="净土">
+<meta property="og:description" content="原文地址：How to save and load game in Godot Engine 创建两个 AutoLoad gdscript 脚本文件Save the file into res:&#x2F;&#x2F;autoload&#x2F;user_data_manager.gdUse the same process to create another script res:&#x2F;&#x2F;autoload&#x2F;game_manage">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/myblogs.github.io/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/set-scripts-as-autoload.png">
+<meta property="article:published_time" content="2020-08-18T03:13:29.000Z">
+<meta property="article:modified_time" content="2020-08-18T03:29:58.025Z">
+<meta property="article:author" content="svensma">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/myblogs.github.io/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/set-scripts-as-autoload.png">
+  
+    <link rel="alternate" href="/myblogs.github.io/atom.xml" title="净土" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/myblogs.github.io/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/myblogs.github.io/" id="logo">净土</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/myblogs.github.io/">Home</a>
+        
+          <a class="main-nav-link" href="/myblogs.github.io/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/myblogs.github.io/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-How_to_save_and_load_game_in_Godot_Engine" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblogs.github.io/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/" class="article-date">
+  <time datetime="2020-08-18T03:13:29.000Z" itemprop="datePublished">2020-08-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      How to save and load game in Godot Engine
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em><a target="_blank" rel="noopener" href="http://codetuto.com/2017/08/save-load-game-godot-engine/">原文地址：How to save and load game in Godot Engine</a></em></p>
+<h3 id="创建两个-AutoLoad-gdscript-脚本文件"><a href="#创建两个-AutoLoad-gdscript-脚本文件" class="headerlink" title="创建两个 AutoLoad gdscript 脚本文件"></a>创建两个 AutoLoad gdscript 脚本文件</h3><p>Save the file into <strong>res://autoload/user_data_manager.gd</strong><br>Use the same process <strong>to create another script res://autoload/game_manager.gd</strong></p>
+<p>Browse our two scripts and set their names as shown below.</p>
+<p><strong>set scripts as autoload</strong><br><img src="/myblogs.github.io/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/set-scripts-as-autoload.png"></p>
+<p>To save and load game in Godot engine, we need to create some scripts. We will create this once and can be used in all of our game. So let us jump into scripting.</p>
+<h3 id="User-Data-Manager-and-Game-Manager-scripting"><a href="#User-Data-Manager-and-Game-Manager-scripting" class="headerlink" title="User Data Manager and Game Manager scripting"></a>User Data Manager and Game Manager scripting</h3><p>The user_data_manager.gd script looks like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">extends Node2D</span><br><span class="line">signal loaded</span><br><span class="line">signal version_mismatch</span><br><span class="line">const LOADED = <span class="string">&quot;loaded&quot;</span></span><br><span class="line">const VERSION_MISMATCH = <span class="string">&quot;version_mismatch&quot;</span></span><br><span class="line">var _path = <span class="string">&quot;path/to/save/data.dat&quot;</span> <span class="comment">#Change this to user://data.dat after testing</span></span><br><span class="line">var _user_data = &#123;&#125;</span><br><span class="line">func load_data(default_data, version):</span><br><span class="line">    _user_data[<span class="string">&quot;version&quot;</span>] = version</span><br><span class="line">    _user_data[<span class="string">&quot;data&quot;</span>] = default_data</span><br><span class="line">    var f = File.new()</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">not</span> f.file_exists(_path)):</span><br><span class="line">        save_data()</span><br><span class="line">    f.open(_path, File.READ)</span><br><span class="line">    var loaded_data = &#123;&#125;</span><br><span class="line">    loaded_data.parse_json(f.get_as_text())</span><br><span class="line">    _parse_loaded_data(loaded_data)</span><br><span class="line">    f.close()</span><br><span class="line">func _parse_loaded_data(loaded_data):</span><br><span class="line">    var loaded_version = loaded_data.version</span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> loaded_data.data.keys():</span><br><span class="line">        _user_data[<span class="string">&quot;data&quot;</span>][key] = loaded_data[<span class="string">&quot;data&quot;</span>][key]</span><br><span class="line">    <span class="keyword">if</span>(loaded_version != _user_data.version):</span><br><span class="line">        emit_signal(VERSION_MISMATCH,loaded_version,loaded_data.data)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        emit_signal(LOADED)</span><br><span class="line">func save_corrected_data(corrected_user_data):</span><br><span class="line">    _user_data[<span class="string">&quot;data&quot;</span>] = corrected_user_data</span><br><span class="line">    save_data()</span><br><span class="line">func update_version(version):</span><br><span class="line">    _user_data[<span class="string">&quot;version&quot;</span>] = version</span><br><span class="line">    save_data()</span><br><span class="line">func save_data():</span><br><span class="line">    var f = File.new()</span><br><span class="line">    f.open(_path,File.WRITE)</span><br><span class="line">    f.store_string(_user_data.to_json())</span><br><span class="line">    f.close()</span><br><span class="line">func set_data(key,value):</span><br><span class="line">    _user_data[<span class="string">&quot;data&quot;</span>][key] = value</span><br><span class="line">func get_data(key):</span><br><span class="line">    <span class="keyword">return</span> _user_data[<span class="string">&quot;data&quot;</span>][key]</span><br></pre></td></tr></table></figure>
+
+<p>To understand the above script we have to look into the game_manager.gd script:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">extends Node2D</span><br><span class="line">var _default_user_data = &#123;</span><br><span class="line">    score = <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line">func _ready():</span><br><span class="line">    UserDataManager.connect(UserDataManager.LOADED,self,<span class="string">&quot;init&quot;</span>)</span><br><span class="line">    UserDataManager.connect(UserDataManager.VERSION_MISMATCH,self,<span class="string">&quot;_user_data_version_mismatch&quot;</span>)</span><br><span class="line">    UserDataManager.load_data(_default_user_data,<span class="string">&quot;0.0.1&quot;</span>);</span><br><span class="line">func _user_data_version_mismatch(loaded_version,loaded_data):</span><br><span class="line"><span class="comment">#    Check loaded_version, parse loaded_data and update the savedata</span></span><br><span class="line"><span class="comment">#    UserDataManager.save_corrected_data(corrected_data)</span></span><br><span class="line"><span class="comment">#    Then update the new version</span></span><br><span class="line"><span class="comment">#    UserDataManager.update_version(&quot;0.0.2&quot;)</span></span><br><span class="line">    init()</span><br><span class="line">func init():</span><br><span class="line">    print(<span class="string">&quot;INIT&quot;</span>)</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>Singleton in Godot is auto instantiated and available to every script by the name we set in the project settings. We have two Singleton objects now – UserDataManager and GameManager. Both can be accessed from any other script we are going to write for our game.</p>
+<p>We have a default user data variable. This is a dictionary object. If there is no save data present when the game starts, this default data is used. In fact, it goes deeper, even if the loaded data has no records for a specified key then the value from this default data is used. This is possible when we update our game and has additional values to be saved.</p>
+<p>When our game boots up, UserDataManager’s load_data method is called with the default data and a version string. This version string can be in any format but it should represent our game version somehow. The UserDataManager will load the save data from the disk. If there is no save data present, it creates a new one with the specified version. If our current game version is different than the one in the saved file, the version mismatch function is called. This is the place to write logic to convert the old user data format to the new one.</p>
+<p>That’s it. We can initialize everything in the init() and UserDataManager will manage the saving and loading of our game.</p>
+<p>This is how you save and load game in Godot Engine.</p>
+<p>When we want to save any data we can call,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UserDataManager.set_data(<span class="string">&quot;health&quot;</span>,<span class="number">75</span>)</span><br><span class="line">UserDataManager.set_data(<span class="string">&quot;coins&quot;</span>,<span class="number">100</span>)</span><br><span class="line">UserDataManager.save_data()</span><br></pre></td></tr></table></figure>
+
+<p>And to get something,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var player_health = UserDataManager.get_data(<span class="string">&quot;health&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Calling the above methods will work from any script and returns the value from our saved data. The above script will only work on 2.1.x versions of Godot engine. Godot 3.0 is just around the corner and scripting API is different for the Dictionary class. We will check it out when it is released.</p>
+<p>If you really need an explanation for the user_data_manager.gd, let me know in the comments below. Thanks for reading.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/" data-id="ckdzdqd230000qoqr9p0khtxn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/myblogs.github.io/2020/08/17/%E9%80%9A%E8%BF%87%E4%BF%AE%E5%A4%8DNGINX%E9%85%8D%E7%BD%AE%E5%B8%AE%E5%8A%A9%E4%B8%96%E7%95%8C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">通过修复NGINX配置帮助世界</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/myblogs.github.io/archives/2020/08/">八月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/myblogs.github.io/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/">How to save and load game in Godot Engine</a>
+          </li>
+        
+          <li>
+            <a href="/myblogs.github.io/2020/08/17/%E9%80%9A%E8%BF%87%E4%BF%AE%E5%A4%8DNGINX%E9%85%8D%E7%BD%AE%E5%B8%AE%E5%8A%A9%E4%B8%96%E7%95%8C/">通过修复NGINX配置帮助世界</a>
+          </li>
+        
+          <li>
+            <a href="/myblogs.github.io/2020/08/14/%E7%94%A8threejs%E5%BC%80%E5%8F%913D%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%B4%AA%E9%A3%9F%E8%9B%87/">用threejs开发3D微信小游戏贪食蛇</a>
+          </li>
+        
+          <li>
+            <a href="/myblogs.github.io/2020/08/14/Install_Nodejs_On_FreeBSD11/">Install Nodejs On FreeBSD 11.1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 svensma<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/myblogs.github.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/myblogs.github.io/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/myblogs.github.io/fancybox/jquery.fancybox.css">
+
+  
+<script src="/myblogs.github.io/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/myblogs.github.io/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
