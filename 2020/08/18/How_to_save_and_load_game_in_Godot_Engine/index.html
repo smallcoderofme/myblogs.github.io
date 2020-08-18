@@ -16,8 +16,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/myblogs.github.io/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/set-scripts-as-autoload.png">
 <meta property="article:published_time" content="2020-08-18T03:13:29.000Z">
-<meta property="article:modified_time" content="2020-08-18T03:29:58.025Z">
+<meta property="article:modified_time" content="2020-08-18T07:10:52.135Z">
 <meta property="article:author" content="svensma">
+<meta property="article:tag" content="godot">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/myblogs.github.io/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/set-scripts-as-autoload.png">
   
@@ -74,6 +75,10 @@
   <time datetime="2020-08-18T03:13:29.000Z" itemprop="datePublished">2020-08-18</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/myblogs.github.io/categories/game-dev/">game dev</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -95,10 +100,10 @@
 <p>Browse our two scripts and set their names as shown below.</p>
 <p><strong>set scripts as autoload</strong><br><img src="/myblogs.github.io/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/set-scripts-as-autoload.png"></p>
 <p>To save and load game in Godot engine, we need to create some scripts. We will create this once and can be used in all of our game. So let us jump into scripting.</p>
-<h3 id="User-Data-Manager-and-Game-Manager-scripting"><a href="#User-Data-Manager-and-Game-Manager-scripting" class="headerlink" title="User Data Manager and Game Manager scripting"></a>User Data Manager and Game Manager scripting</h3><p>The user_data_manager.gd script looks like:</p>
+<h3 id="User-Data-Manager-and-Game-Manager-scripting"><a href="#User-Data-Manager-and-Game-Manager-scripting" class="headerlink" title="User Data Manager and Game Manager scripting"></a>User Data Manager and Game Manager scripting</h3><p>The <strong>user_data_manager.gd</strong> script looks like:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">extends Node2D</span><br><span class="line">signal loaded</span><br><span class="line">signal version_mismatch</span><br><span class="line">const LOADED = <span class="string">&quot;loaded&quot;</span></span><br><span class="line">const VERSION_MISMATCH = <span class="string">&quot;version_mismatch&quot;</span></span><br><span class="line">var _path = <span class="string">&quot;path/to/save/data.dat&quot;</span> <span class="comment">#Change this to user://data.dat after testing</span></span><br><span class="line">var _user_data = &#123;&#125;</span><br><span class="line">func load_data(default_data, version):</span><br><span class="line">    _user_data[<span class="string">&quot;version&quot;</span>] = version</span><br><span class="line">    _user_data[<span class="string">&quot;data&quot;</span>] = default_data</span><br><span class="line">    var f = File.new()</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">not</span> f.file_exists(_path)):</span><br><span class="line">        save_data()</span><br><span class="line">    f.open(_path, File.READ)</span><br><span class="line">    var loaded_data = &#123;&#125;</span><br><span class="line">    loaded_data.parse_json(f.get_as_text())</span><br><span class="line">    _parse_loaded_data(loaded_data)</span><br><span class="line">    f.close()</span><br><span class="line">func _parse_loaded_data(loaded_data):</span><br><span class="line">    var loaded_version = loaded_data.version</span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> loaded_data.data.keys():</span><br><span class="line">        _user_data[<span class="string">&quot;data&quot;</span>][key] = loaded_data[<span class="string">&quot;data&quot;</span>][key]</span><br><span class="line">    <span class="keyword">if</span>(loaded_version != _user_data.version):</span><br><span class="line">        emit_signal(VERSION_MISMATCH,loaded_version,loaded_data.data)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        emit_signal(LOADED)</span><br><span class="line">func save_corrected_data(corrected_user_data):</span><br><span class="line">    _user_data[<span class="string">&quot;data&quot;</span>] = corrected_user_data</span><br><span class="line">    save_data()</span><br><span class="line">func update_version(version):</span><br><span class="line">    _user_data[<span class="string">&quot;version&quot;</span>] = version</span><br><span class="line">    save_data()</span><br><span class="line">func save_data():</span><br><span class="line">    var f = File.new()</span><br><span class="line">    f.open(_path,File.WRITE)</span><br><span class="line">    f.store_string(_user_data.to_json())</span><br><span class="line">    f.close()</span><br><span class="line">func set_data(key,value):</span><br><span class="line">    _user_data[<span class="string">&quot;data&quot;</span>][key] = value</span><br><span class="line">func get_data(key):</span><br><span class="line">    <span class="keyword">return</span> _user_data[<span class="string">&quot;data&quot;</span>][key]</span><br></pre></td></tr></table></figure>
 
-<p>To understand the above script we have to look into the game_manager.gd script:</p>
+<p>To understand the above script we have to look into the <strong>game_manager.gd</strong> script:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">extends Node2D</span><br><span class="line">var _default_user_data = &#123;</span><br><span class="line">    score = <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line">func _ready():</span><br><span class="line">    UserDataManager.connect(UserDataManager.LOADED,self,<span class="string">&quot;init&quot;</span>)</span><br><span class="line">    UserDataManager.connect(UserDataManager.VERSION_MISMATCH,self,<span class="string">&quot;_user_data_version_mismatch&quot;</span>)</span><br><span class="line">    UserDataManager.load_data(_default_user_data,<span class="string">&quot;0.0.1&quot;</span>);</span><br><span class="line">func _user_data_version_mismatch(loaded_version,loaded_data):</span><br><span class="line"><span class="comment">#    Check loaded_version, parse loaded_data and update the savedata</span></span><br><span class="line"><span class="comment">#    UserDataManager.save_corrected_data(corrected_data)</span></span><br><span class="line"><span class="comment">#    Then update the new version</span></span><br><span class="line"><span class="comment">#    UserDataManager.update_version(&quot;0.0.2&quot;)</span></span><br><span class="line">    init()</span><br><span class="line">func init():</span><br><span class="line">    print(<span class="string">&quot;INIT&quot;</span>)</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 
 <p>Singleton in Godot is auto instantiated and available to every script by the name we set in the project settings. We have two Singleton objects now – UserDataManager and GameManager. Both can be accessed from any other script we are going to write for our game.</p>
@@ -121,6 +126,8 @@
       <a data-url="http://yoursite.com/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/" data-id="ckdzdqd230000qoqr9p0khtxn" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblogs.github.io/tags/godot/" rel="tag">godot</a></li></ul>
+
     </footer>
   </div>
   
@@ -143,12 +150,33 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/game-dev/">game dev</a></li><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/web/">web</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/godot/" rel="tag">godot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/wexin/" rel="tag">wexin</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/myblogs.github.io/tags/godot/" style="font-size: 10px;">godot</a> <a href="/myblogs.github.io/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/myblogs.github.io/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/myblogs.github.io/tags/wexin/" style="font-size: 10px;">wexin</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
