@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>intro_postgres | 净土</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="创建数据库：1createdb -h localhost -U postgres -p 5432 mydb  用户登陆：1psql -h localhost -U postgres -p 5432 mydb  以超级用户登陆：1sudo su - postgres   1234567890  删除或者创建用户皆以数据库为依托：12psql sqlnamedrop user role  创建角色和将">
+<meta property="og:type" content="article">
+<meta property="og:title" content="intro_postgres">
+<meta property="og:url" content="http://yoursite.com/2020/09/22/intro-postgres/index.html">
+<meta property="og:site_name" content="净土">
+<meta property="og:description" content="创建数据库：1createdb -h localhost -U postgres -p 5432 mydb  用户登陆：1psql -h localhost -U postgres -p 5432 mydb  以超级用户登陆：1sudo su - postgres   1234567890  删除或者创建用户皆以数据库为依托：12psql sqlnamedrop user role  创建角色和将">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-22T01:46:32.000Z">
+<meta property="article:modified_time" content="2020-09-22T02:12:10.908Z">
+<meta property="article:author" content="svensma">
+<meta property="article:tag" content="postgresql">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/myblogs.github.io/atom.xml" title="净土" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/myblogs.github.io/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/myblogs.github.io/" id="logo">净土</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/myblogs.github.io/">Home</a>
+        
+          <a class="main-nav-link" href="/myblogs.github.io/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/myblogs.github.io/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/myblogs.github.io/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-intro-postgres" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblogs.github.io/2020/09/22/intro-postgres/" class="article-date">
+  <time datetime="2020-09-22T01:46:32.000Z" itemprop="datePublished">2020-09-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/myblogs.github.io/categories/SQL/">SQL</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      intro_postgres
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="创建数据库："><a href="#创建数据库：" class="headerlink" title="创建数据库："></a>创建数据库：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createdb -h localhost -U postgres -p 5432 mydb</span><br></pre></td></tr></table></figure>
+
+<h4 id="用户登陆："><a href="#用户登陆：" class="headerlink" title="用户登陆："></a>用户登陆：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -h localhost -U postgres -p 5432 mydb</span><br></pre></td></tr></table></figure>
+
+<h4 id="以超级用户登陆："><a href="#以超级用户登陆：" class="headerlink" title="以超级用户登陆："></a>以超级用户登陆：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su - postgres   1234567890</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除或者创建用户皆以数据库为依托："><a href="#删除或者创建用户皆以数据库为依托：" class="headerlink" title="删除或者创建用户皆以数据库为依托："></a>删除或者创建用户皆以数据库为依托：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">psql sqlname</span><br><span class="line">drop user role</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建角色和将数据库分配给角色："><a href="#创建角色和将数据库分配给角色：" class="headerlink" title="创建角色和将数据库分配给角色："></a>创建角色和将数据库分配给角色：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE ROLE name PASSWORD <span class="string">&#x27;string&#x27;</span></span><br><span class="line">CREATE DATABASE exampledb OWNER dbuser</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除表："><a href="#删除表：" class="headerlink" title="删除表："></a>删除表：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE tablename</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除表数据-但保留表结构："><a href="#删除表数据-但保留表结构：" class="headerlink" title="删除表数据,但保留表结构："></a>删除表数据,但保留表结构：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete from users</span><br></pre></td></tr></table></figure>
+
+<h4 id="超级管理员-postgres-登录，创建数据库并移交给某个用户："><a href="#超级管理员-postgres-登录，创建数据库并移交给某个用户：" class="headerlink" title="超级管理员 postgres 登录，创建数据库并移交给某个用户："></a>超级管理员 postgres 登录，创建数据库并移交给某个用户：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">psql -h localhost -U postgres</span><br><span class="line">CREATE DATABASE tempDB OWNER sunshuai</span><br></pre></td></tr></table></figure>
+
+<h4 id="超级管理员直接创建数据库（所有者为超级管理员）："><a href="#超级管理员直接创建数据库（所有者为超级管理员）：" class="headerlink" title="超级管理员直接创建数据库（所有者为超级管理员）："></a>超级管理员直接创建数据库（所有者为超级管理员）：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createdb -h localhost -U postgres -p 5432 tempDB</span><br></pre></td></tr></table></figure>
+
+<h4 id="备份和恢复："><a href="#备份和恢复：" class="headerlink" title="备份和恢复："></a>备份和恢复：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pg_dump -h localhost -U sunshuai tempdb &gt; dumpfile</span><br><span class="line">psql dbname &lt; dumpfile</span><br></pre></td></tr></table></figure>
+
+<h4 id="赋予角色登陆权限"><a href="#赋予角色登陆权限" class="headerlink" title="赋予角色登陆权限"></a>赋予角色登陆权限</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">psql -h localhost -U postgres</span><br><span class="line">ALTER ROLE <span class="string">&quot;asunotest&quot;</span> WITH LOGIN</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/22/intro-postgres/" data-id="ckfdbnn3q0000voqrb6uogtyw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblogs.github.io/tags/postgresql/" rel="tag">postgresql</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/myblogs.github.io/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">How to save and load game in Godot Engine</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/SQL/">SQL</a></li><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/game-dev/">game dev</a></li><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/godot/" rel="tag">godot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/postgresql/" rel="tag">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/wexin/" rel="tag">wexin</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/myblogs.github.io/tags/godot/" style="font-size: 10px;">godot</a> <a href="/myblogs.github.io/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/myblogs.github.io/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/myblogs.github.io/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/myblogs.github.io/tags/wexin/" style="font-size: 10px;">wexin</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/myblogs.github.io/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/myblogs.github.io/archives/2020/08/">八月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/myblogs.github.io/2020/09/22/intro-postgres/">intro_postgres</a>
+          </li>
+        
+          <li>
+            <a href="/myblogs.github.io/2020/08/18/How_to_save_and_load_game_in_Godot_Engine/">How to save and load game in Godot Engine</a>
+          </li>
+        
+          <li>
+            <a href="/myblogs.github.io/2020/08/17/%E9%80%9A%E8%BF%87%E4%BF%AE%E5%A4%8DNGINX%E9%85%8D%E7%BD%AE%E5%B8%AE%E5%8A%A9%E4%B8%96%E7%95%8C/">通过修复NGINX配置帮助世界</a>
+          </li>
+        
+          <li>
+            <a href="/myblogs.github.io/2020/08/14/%E7%94%A8threejs%E5%BC%80%E5%8F%913D%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%B4%AA%E9%A3%9F%E8%9B%87/">用threejs开发3D微信小游戏贪食蛇</a>
+          </li>
+        
+          <li>
+            <a href="/myblogs.github.io/2020/08/14/Install_Nodejs_On_FreeBSD11/">Install Nodejs On FreeBSD 11.1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 svensma<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/myblogs.github.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/myblogs.github.io/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/myblogs.github.io/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/myblogs.github.io/fancybox/jquery.fancybox.css">
+
+  
+<script src="/myblogs.github.io/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/myblogs.github.io/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
