@@ -95,13 +95,20 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>今天在安装erlang时出现以下问题：</p>
-<h3 id="安装-NodeJS"><a href="#安装-NodeJS" class="headerlink" title="安装  NodeJS:"></a>安装  NodeJS:</h3><p>直接安装二进制包：</p>
+<h3 id="安装-erlang"><a href="#安装-erlang" class="headerlink" title="安装 erlang:"></a>安装 erlang:</h3><p>直接安装二进制包：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg install erlang</span><br></pre></td></tr></table></figure>
+<br/> 
 <img src="/myblogs.github.io/2020/10/19/Pkg-update-on-FreeBSD-11-1/error.png">
 （PS:网络好的话还是ports源码安装比较好）
 
 <p>解决办法：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pkg bootstrap -f</span><br><span class="line">pkg update -f</span><br></pre></td></tr></table></figure>
+
+<p>系统更新：<br>*<a target="_blank" rel="noopener" href="https://www.freebsd.org/doc/zh_CN/books/handbook/updating-upgrading-freebsdupdate.html/">原文地址：help-the-world-by-healing-your-nginx-configuration</a>*<br>换国内源</p>
+<pre><code class="bash">vi /etc/freebsd-update.conf # change .org to .cn
+freebsd-update -r 12.1-RELEASE upgrade
+freebsd-update install</code></pre>
+
       
     </div>
     <footer class="article-footer">

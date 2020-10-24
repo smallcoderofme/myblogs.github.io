@@ -7,16 +7,16 @@
   
   <title>Pkg update on FreeBSD 11.1 | 净土</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天在安装erlang时出现以下问题： 安装  NodeJS:直接安装二进制包： 1pkg install erlang  （PS:网络好的话还是ports源码安装比较好）  解决办法： 12pkg bootstrap -fpkg update -f">
+  <meta name="description" content="今天在安装erlang时出现以下问题： 安装 erlang:直接安装二进制包： 1pkg install erlang    （PS:网络好的话还是ports源码安装比较好）  解决办法： 12pkg bootstrap -fpkg update -f  系统更新：*原文地址：help-the-world-by-healing-your-nginx-configuration*换国内源 vi &#x2F;e">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pkg update on FreeBSD 11.1">
 <meta property="og:url" content="http://yoursite.com/2020/10/19/Pkg-update-on-FreeBSD-11-1/index.html">
 <meta property="og:site_name" content="净土">
-<meta property="og:description" content="今天在安装erlang时出现以下问题： 安装  NodeJS:直接安装二进制包： 1pkg install erlang  （PS:网络好的话还是ports源码安装比较好）  解决办法： 12pkg bootstrap -fpkg update -f">
+<meta property="og:description" content="今天在安装erlang时出现以下问题： 安装 erlang:直接安装二进制包： 1pkg install erlang    （PS:网络好的话还是ports源码安装比较好）  解决办法： 12pkg bootstrap -fpkg update -f  系统更新：*原文地址：help-the-world-by-healing-your-nginx-configuration*换国内源 vi &#x2F;e">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/myblogs.github.io/2020/10/19/Pkg-update-on-FreeBSD-11-1/error.png">
 <meta property="article:published_time" content="2020-10-19T06:29:28.000Z">
-<meta property="article:modified_time" content="2020-10-19T06:36:15.662Z">
+<meta property="article:modified_time" content="2020-10-24T07:56:53.888Z">
 <meta property="article:author" content="svensma">
 <meta property="article:tag" content="os">
 <meta name="twitter:card" content="summary">
@@ -98,13 +98,20 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>今天在安装erlang时出现以下问题：</p>
-<h3 id="安装-NodeJS"><a href="#安装-NodeJS" class="headerlink" title="安装  NodeJS:"></a>安装  NodeJS:</h3><p>直接安装二进制包：</p>
+<h3 id="安装-erlang"><a href="#安装-erlang" class="headerlink" title="安装 erlang:"></a>安装 erlang:</h3><p>直接安装二进制包：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg install erlang</span><br></pre></td></tr></table></figure>
+<br/> 
 <img src="/myblogs.github.io/2020/10/19/Pkg-update-on-FreeBSD-11-1/error.png">
 （PS:网络好的话还是ports源码安装比较好）
 
 <p>解决办法：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pkg bootstrap -f</span><br><span class="line">pkg update -f</span><br></pre></td></tr></table></figure>
+
+<p>系统更新：<br>*<a target="_blank" rel="noopener" href="https://www.freebsd.org/doc/zh_CN/books/handbook/updating-upgrading-freebsdupdate.html/">原文地址：help-the-world-by-healing-your-nginx-configuration</a>*<br>换国内源</p>
+<pre><code class="bash">vi /etc/freebsd-update.conf # change .org to .cn
+freebsd-update -r 12.1-RELEASE upgrade
+freebsd-update install</code></pre>
+
       
     </div>
     <footer class="article-footer">
