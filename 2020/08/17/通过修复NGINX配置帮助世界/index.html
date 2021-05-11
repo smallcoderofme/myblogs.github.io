@@ -18,9 +18,9 @@
 <meta property="og:image" content="http://yoursite.com/myblogs.github.io/2020/08/17/通过修复NGINX配置帮助世界/rogalove-devtools-gzip.png">
 <meta property="og:image" content="http://yoursite.com/myblogs.github.io/2020/08/17/通过修复NGINX配置帮助世界/rogalove-http2-pro.png">
 <meta property="article:published_time" content="2020-08-17T08:29:17.000Z">
-<meta property="article:modified_time" content="2020-08-18T07:01:56.877Z">
+<meta property="article:modified_time" content="2021-05-11T00:42:44.311Z">
 <meta property="article:author" content="svensma">
-<meta property="article:tag" content="nginx">
+<meta property="article:tag" content="Nginx">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/myblogs.github.io/2020/08/17/通过修复NGINX配置帮助世界/rogalove-devtools-no-gzip.png">
   
@@ -57,6 +57,8 @@
         
           <a class="main-nav-link" href="/myblogs.github.io/archives">Archives</a>
         
+          <a class="main-nav-link" href="/myblogs.github.io/storyline">StoryLine</a>
+        
           <a class="main-nav-link" href="/myblogs.github.io/about">About</a>
         
       </nav>
@@ -80,7 +82,7 @@
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/myblogs.github.io/categories/web/">web</a>
+    <a class="article-category-link" href="/myblogs.github.io/categories/Web/">Web</a>
   </div>
 
   </div>
@@ -148,24 +150,19 @@
 
 <h3 id="限制特定URL的带宽"><a href="#限制特定URL的带宽" class="headerlink" title="限制特定URL的带宽"></a>限制特定URL的带宽</h3><p>如果服务器提供较大的文件（或较小但非常受欢迎的文件，例如表单或报表），则设置客户端下载文件的最大速度可能很有用。如果您的站点已经承受了很高的网络负载，则限制下载速度会留下更多带宽，以使应用程序的关键部分保持响应速度。这是硬件制造商使用的非常流行的解决方案–您可能需要等待更长的时间才能为打印机下载3 GB的驱动程序，但是同时有成千上万的其他人下载您仍然可以下载。😉</p>
 <p>使用limit_rate指令限制特定URL的带宽。在这里，我们将/ download 下每个文件的传输速率限制为每秒50 KB。</p>
-<pre><code class="bash">location /download/ &#123;
-    limit_rate 50k;
-&#125;</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /download/ &#123;</span><br><span class="line">    limit_rate 50k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>您可能还希望仅对较大的文件进行速率限制，这可以使用limit_rate_after指令进行。在此示例中，每个文件（来自任何目录）的前500 KB都不受速度限制地进行传输，之后的所有内容均以50 KB / s为上限。这样可以加快网站关键部分的交付速度，同时降低其他部分的速度。</p>
-<pre><code class="bash">location / &#123;
-    limit_rate_after 500k;
-    limit_rate 50k;
-&#125;</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    limit_rate_after 500k;</span><br><span class="line">    limit_rate 50k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>请注意，速率限制适用于浏览器和NGINX之间的单个HTTP连接，因此请不要阻止用户使用下载管理器来解决速率限制。 最后，您还可以限制到服务器的并发连接数或请求速率。有关详细信息，请参见我们的文档。</p>
 <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>我们希望这五个技巧能帮助您优化网站的性能。速度和带宽增益因网站而异。即使调整您的NGINX配置似乎并没有显着释放带宽或提高速度，成千上万的网站单独调整其NGINX配置的整体影响还是会加在一起。我们的全球网络得到更有效的利用，这意味着最关键的服务将在需要时提供。 如果您在站点上遇到有关NGINX的任何问题，我们将为您提供帮助！在COVID‑19大流行期间，NGINX员工和社区正在监视Stack Overflow 1上的NGINX通道，并尽快答复问题和要求。 如果您在流行病最前沿的组织工作并有高级需求，则您可能有资格获得最多五个免费的NGINX Plus许可证以及更高级别的F5 DNS负载平衡器云服务。有关详细信息，请参见受COVID‑19影响的网站的免费资源。 还可以查看该博客，了解使用NGINX和F5的免费资源来提高网站性能的其他简便方法的摘要。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/17/%E9%80%9A%E8%BF%87%E4%BF%AE%E5%A4%8DNGINX%E9%85%8D%E7%BD%AE%E5%B8%AE%E5%8A%A9%E4%B8%96%E7%95%8C/" data-id="ckdy9trhl0000p4qrfx5537vw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/17/%E9%80%9A%E8%BF%87%E4%BF%AE%E5%A4%8DNGINX%E9%85%8D%E7%BD%AE%E5%B8%AE%E5%8A%A9%E4%B8%96%E7%95%8C/" data-id="ckojdt87w000fjcqrc1wger17" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblogs.github.io/tags/nginx/" rel="tag">nginx</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblogs.github.io/tags/Nginx/" rel="tag">Nginx</a></li></ul>
 
     </footer>
   </div>
@@ -201,7 +198,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/SQL/">SQL</a></li><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/erlang/">erlang</a></li><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/game-dev/">game dev</a></li><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/web/">web</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/Erlang/">Erlang</a></li><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/Game-Dev/">Game Dev</a></li><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/SQL/">SQL</a></li><li class="category-list-item"><a class="category-list-link" href="/myblogs.github.io/categories/Web/">Web</a></li></ul>
     </div>
   </div>
 
@@ -211,7 +208,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/godot/" rel="tag">godot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/os/" rel="tag">os</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/postgresql/" rel="tag">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/wexin/" rel="tag">wexin</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/Godot/" rel="tag">Godot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/Nodejs/" rel="tag">Nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/Postgresql/" rel="tag">Postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/Web/" rel="tag">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblogs.github.io/tags/Wexin/" rel="tag">Wexin</a></li></ul>
     </div>
   </div>
 
@@ -221,7 +218,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/myblogs.github.io/tags/godot/" style="font-size: 10px;">godot</a> <a href="/myblogs.github.io/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/myblogs.github.io/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/myblogs.github.io/tags/os/" style="font-size: 10px;">os</a> <a href="/myblogs.github.io/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/myblogs.github.io/tags/web/" style="font-size: 10px;">web</a> <a href="/myblogs.github.io/tags/wexin/" style="font-size: 10px;">wexin</a>
+      <a href="/myblogs.github.io/tags/Godot/" style="font-size: 10px;">Godot</a> <a href="/myblogs.github.io/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/myblogs.github.io/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/myblogs.github.io/tags/OS/" style="font-size: 10px;">OS</a> <a href="/myblogs.github.io/tags/Postgresql/" style="font-size: 10px;">Postgresql</a> <a href="/myblogs.github.io/tags/Web/" style="font-size: 10px;">Web</a> <a href="/myblogs.github.io/tags/Wexin/" style="font-size: 10px;">Wexin</a>
     </div>
   </div>
 
@@ -274,7 +271,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 svensma<br>
+      &copy; 2021 svensma<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -286,12 +283,14 @@
   
     <a href="/myblogs.github.io/archives" class="mobile-nav-link">Archives</a>
   
+    <a href="/myblogs.github.io/storyline" class="mobile-nav-link">StoryLine</a>
+  
     <a href="/myblogs.github.io/about" class="mobile-nav-link">About</a>
   
 </nav>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 
   
