@@ -14,14 +14,14 @@
 <meta property="og:site_name" content="净土">
 <meta property="og:description" content="现在在github已经有现成的threejs的weapp-ddapter.js了。但我早前做得时候没有找到，只找到修改weapp-ddapter的方式。 修改 1：在变量document对象里增加以下函数：123createElementNS: function createElementNS(nameSpace, tagName)&amp;#123;    return this.createEleme">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/myblogs.github.io/2020/08/14/用threejs开发3D微信小游戏贪食蛇/threejs1.jpg">
-<meta property="og:image" content="http://yoursite.com/myblogs.github.io/2020/08/14/用threejs开发3D微信小游戏贪食蛇/threejs2.jpg">
+<meta property="og:image" content="http://yoursite.com/myblogs.github.io/assets/threejs1.jpg">
+<meta property="og:image" content="http://yoursite.com/myblogs.github.io/assets/threejs2.jpg">
 <meta property="article:published_time" content="2020-08-14T08:08:35.000Z">
-<meta property="article:modified_time" content="2021-05-11T00:42:50.574Z">
+<meta property="article:modified_time" content="2021-05-12T04:06:15.429Z">
 <meta property="article:author" content="svensma">
 <meta property="article:tag" content="Wexin">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/myblogs.github.io/2020/08/14/用threejs开发3D微信小游戏贪食蛇/threejs1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/myblogs.github.io/assets/threejs1.jpg">
   
     <link rel="alternate" href="/myblogs.github.io/atom.xml" title="净土" type="application/atom+xml">
   
@@ -55,8 +55,6 @@
           <a class="main-nav-link" href="/myblogs.github.io/">Home</a>
         
           <a class="main-nav-link" href="/myblogs.github.io/archives">Archives</a>
-        
-          <a class="main-nav-link" href="/myblogs.github.io/storyline">StoryLine</a>
         
           <a class="main-nav-link" href="/myblogs.github.io/about">About</a>
         
@@ -105,7 +103,7 @@
 <h3 id="修改-2：在函数-createClass-XMLHTTPRequest-key-’abort’…-…-参数中增加addEventListener函数："><a href="#修改-2：在函数-createClass-XMLHTTPRequest-key-’abort’…-…-参数中增加addEventListener函数：" class="headerlink" title="修改 2：在函数_createClass(XMLHTTPRequest, [{key:’abort’…}, …])()参数中增加addEventListener函数："></a>修改 2：在函数_createClass(XMLHTTPRequest, [{key:’abort’…}, …])()参数中增加addEventListener函数：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  key: <span class="string">&#x27;addEventListener&#x27;</span>,</span><br><span class="line">  value: <span class="function"><span class="keyword">function</span> <span class="title">addEventListener</span>(<span class="params">type, listener</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> listener === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> event = &#123; <span class="attr">target</span>: <span class="built_in">this</span> &#125;</span><br><span class="line">      <span class="keyword">let</span> that = <span class="built_in">this</span></span><br><span class="line">      <span class="built_in">this</span>[<span class="string">&#x27;on&#x27;</span> + type] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        listener.call(that, event)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>自此微信小游戏就可以支持threejs了，下面开始做个简单的小游戏。<br>这个游戏需要用到两个js库，用以辅助Threejs。<br><strong>1: Detector.js</strong><br>Detector用来检测threejs的兼容性。<br><strong>2: OrbitControls.js</strong><br>OrbitControls用来作为threejs的轨道控制器。<br>额外的，如果想监测threejs的性能帧数，可以用stats.js。这里的Demo比较简单，就不用它了。<br>初始化先检测webgl的兼容性</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (g.Detector.webgl) &#123;</span><br><span class="line">    <span class="built_in">this</span>.scene = <span class="keyword">new</span> THREE.Scene();</span><br><span class="line">    <span class="built_in">this</span>.camera = <span class="keyword">new</span> THREE.PerspectiveCamera( <span class="number">75</span>, g.innerWidth/g.innerHeight, <span class="number">0.1</span>, <span class="number">1000</span> );</span><br><span class="line">    <span class="built_in">this</span>.renderer = <span class="keyword">new</span> THREE.WebGLRenderer();</span><br><span class="line">    ...</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//如果不兼容，需要显示出warning提示</span></span><br><span class="line">    <span class="keyword">var</span> warning = Detector.getWebGLErrorMessage();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的小游戏场景，按钮，为了省事都以立方体cube代替。食物cube在场景随机产生，同时设置随机颜色。 在操作上，设定为在场景cube的6个面各有一个按钮cube，通过点击这6个按钮控制小蛇在空间的移动方向。为了方便观察，我们 设置食物cube，小蛇cube均有alpha = 0.4的透明度。<br>效果图如下：<br><img src="/myblogs.github.io/2020/08/14/用threejs开发3D微信小游戏贪食蛇/threejs1.jpg"><br><img src="/myblogs.github.io/2020/08/14/用threejs开发3D微信小游戏贪食蛇/threejs2.jpg"><br>需要改进：这里玩了几把，操作上需要不断的调整场景角度才能很好的操作小蛇，操作比较僵硬。暂时没有好的操作优化思路，暂时就到这吧，有空闲时间再研究。</p>
+<p>这里的小游戏场景，按钮，为了省事都以立方体cube代替。食物cube在场景随机产生，同时设置随机颜色。 在操作上，设定为在场景cube的6个面各有一个按钮cube，通过点击这6个按钮控制小蛇在空间的移动方向。为了方便观察，我们 设置食物cube，小蛇cube均有alpha = 0.4的透明度。<br>效果图如下：<br><img src="/myblogs.github.io/assets/threejs1.jpg"><br><img src="/myblogs.github.io/assets/threejs2.jpg"><br>需要改进：这里玩了几把，操作上需要不断的调整场景角度才能很好的操作小蛇，操作比较僵硬。暂时没有好的操作优化思路，暂时就到这吧，有空闲时间再研究。</p>
 
       
     </div>
@@ -191,7 +189,7 @@
       <ul>
         
           <li>
-            <a href="/myblogs.github.io/2021/05/11/test-page/">test_page</a>
+            <a href="/myblogs.github.io/2021/05/11/Auto%20render%20and%20output%20in%20Blender%20with%20Python/">Blender Python API Render And Output</a>
           </li>
         
           <li>
@@ -233,8 +231,6 @@
     <a href="/myblogs.github.io/" class="mobile-nav-link">Home</a>
   
     <a href="/myblogs.github.io/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/myblogs.github.io/storyline" class="mobile-nav-link">StoryLine</a>
   
     <a href="/myblogs.github.io/about" class="mobile-nav-link">About</a>
   

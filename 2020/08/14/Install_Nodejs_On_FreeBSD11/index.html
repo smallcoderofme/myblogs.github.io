@@ -14,13 +14,13 @@
 <meta property="og:site_name" content="净土">
 <meta property="og:description" content="安装  NodeJS:这里用懒惰的办法，直接安装二进制包： 1pkg install node （PS:网络好的话还是ports源码安装比较好）安装过程是没有任何问题的，但是我想 node -v看下版本测试是否真的安装成功的时候。然后就出事了：Undefined symbol “nghttp2_submit_origin” nodejs FreeBSD好在FreeBSD的优势就是文档详细，在官方文">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/myblogs.github.io/2020/08/14/Install_Nodejs_On_FreeBSD11/freebsd_node.jpg">
+<meta property="og:image" content="http://yoursite.com/myblogs.github.io/assets/freebsd_node.jpg">
 <meta property="article:published_time" content="2020-08-14T07:10:21.000Z">
-<meta property="article:modified_time" content="2021-05-11T00:43:15.905Z">
+<meta property="article:modified_time" content="2021-05-12T03:58:32.476Z">
 <meta property="article:author" content="svensma">
 <meta property="article:tag" content="Nodejs">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/myblogs.github.io/2020/08/14/Install_Nodejs_On_FreeBSD11/freebsd_node.jpg">
+<meta name="twitter:image" content="http://yoursite.com/myblogs.github.io/assets/freebsd_node.jpg">
   
     <link rel="alternate" href="/myblogs.github.io/atom.xml" title="净土" type="application/atom+xml">
   
@@ -54,8 +54,6 @@
           <a class="main-nav-link" href="/myblogs.github.io/">Home</a>
         
           <a class="main-nav-link" href="/myblogs.github.io/archives">Archives</a>
-        
-          <a class="main-nav-link" href="/myblogs.github.io/storyline">StoryLine</a>
         
           <a class="main-nav-link" href="/myblogs.github.io/about">About</a>
         
@@ -101,7 +99,7 @@
       
         <h3 id="安装-NodeJS"><a href="#安装-NodeJS" class="headerlink" title="安装  NodeJS:"></a>安装  NodeJS:</h3><p>这里用懒惰的办法，直接安装二进制包：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg install node</span><br></pre></td></tr></table></figure>
-<p>（PS:网络好的话还是ports源码安装比较好）<br>安装过程是没有任何问题的，但是我想 node -v看下版本测试是否真的安装成功的时候。<br>然后就出事了：<br><font color=#dd0000>Undefined symbol “nghttp2_submit_origin” nodejs FreeBSD</font><br>好在FreeBSD的优势就是文档详细，在官方文档找到如下：<br><img src="/myblogs.github.io/2020/08/14/Install_Nodejs_On_FreeBSD11/freebsd_node.jpg"><br>其实真正导致这个问题的是缺少 libnghttp2但是我看到我的系统自带python 版本是python27-2.7.13，为了不出其他的幺蛾子，索性把依赖的库都升级到requires的版本了。<br>把依赖的包依次安装或更新，问题瞬间解决。完美</p>
+<p>（PS:网络好的话还是ports源码安装比较好）<br>安装过程是没有任何问题的，但是我想 node -v看下版本测试是否真的安装成功的时候。<br>然后就出事了：<br><font color=#dd0000>Undefined symbol “nghttp2_submit_origin” nodejs FreeBSD</font><br>好在FreeBSD的优势就是文档详细，在官方文档找到如下：<br><img src="/myblogs.github.io/assets/freebsd_node.jpg"><br>其实真正导致这个问题的是缺少 libnghttp2但是我看到我的系统自带python 版本是python27-2.7.13，为了不出其他的幺蛾子，索性把依赖的库都升级到requires的版本了。<br>把依赖的包依次安装或更新，问题瞬间解决。完美</p>
 
       
     </div>
@@ -182,7 +180,7 @@
       <ul>
         
           <li>
-            <a href="/myblogs.github.io/2021/05/11/test-page/">test_page</a>
+            <a href="/myblogs.github.io/2021/05/11/Auto%20render%20and%20output%20in%20Blender%20with%20Python/">Blender Python API Render And Output</a>
           </li>
         
           <li>
@@ -224,8 +222,6 @@
     <a href="/myblogs.github.io/" class="mobile-nav-link">Home</a>
   
     <a href="/myblogs.github.io/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/myblogs.github.io/storyline" class="mobile-nav-link">StoryLine</a>
   
     <a href="/myblogs.github.io/about" class="mobile-nav-link">About</a>
   
